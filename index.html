@@ -8,54 +8,323 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --bg-primary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --bg-secondary: rgba(255, 255, 255, 0.98);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .dark-mode {
+            --bg-primary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --bg-secondary: rgba(30, 41, 59, 0.95);
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #475569;
+            --accent-gradient: linear-gradient(135deg, #8b5cf6, #ec4899);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #2d2d2d 100%);
+            background: var(--bg-primary);
             min-height: 100vh;
-            color: #e5e5e5;
+            color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        .card:hover {
+            box-shadow: var(--hover-shadow);
+            transform: translateY(-2px);
+        }
+
         .gradient-text {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            background: var(--accent-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradient-shift 3s ease infinite;
         }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .btn-primary {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+            background: var(--accent-gradient);
             transition: all 0.3s ease;
+            border: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
-        .glow-effect {
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(12deg);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .input-field {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            color: var(--text-primary) !important;
+        }
+
+        .input-field:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted) !important;
+        }
+
+        .result-box {
+            background: var(--accent-gradient);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .info-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .dark-mode .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .dark-mode .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .exchange-select {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            color: var(--text-primary) !important;
+        }
+
+        .exchange-select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .copy-btn {
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Improved contrast for light mode */
+        .text-primary {
+            color: var(--text-primary) !important;
+        }
+
+        .text-secondary {
+            color: var(--text-secondary) !important;
+        }
+
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+
+        .bg-input {
+            background: var(--bg-secondary);
+        }
+
+        /* Specific contrast improvements */
+        .light-contrast-fix {
+            color: #0f172a !important;
+        }
+
+        .dark-mode .light-contrast-fix {
+            color: #f1f5f9 !important;
+        }
+
+        .light-text-secondary {
+            color: #475569 !important;
+        }
+
+        .dark-mode .light-text-secondary {
+            color: #cbd5e1 !important;
+        }
+
+        .light-border {
+            border-color: #e2e8f0 !important;
+        }
+
+        .dark-mode .light-border {
+            border-color: #475569 !important;
+        }
+
+        /* Payment Information Specific Fixes */
+        .payment-bg {
+            background: #f8fafc !important;
+        }
+
+        .dark-mode .payment-bg {
+            background: #1e293b !important;
+        }
+
+        .payment-text {
+            color: #0f172a !important;
+            font-weight: 600 !important;
+        }
+
+        .dark-mode .payment-text {
+            color: #f1f5f9 !important;
+            font-weight: 600 !important;
+        }
+
+        .payment-label {
+            color: #475569 !important;
+            font-weight: 600 !important;
+        }
+
+        .dark-mode .payment-label {
+            color: #cbd5e1 !important;
+            font-weight: 600 !important;
+        }
+
+        .payment-box {
+            background: #ffffff !important;
+            border: 2px solid #e2e8f0 !important;
+        }
+
+        .dark-mode .payment-box {
+            background: #334155 !important;
+            border: 2px solid #475569 !important;
+        }
+
+        /* Improved info box text contrast */
+        .info-box-text {
+            color: #1e40af !important;
+        }
+
+        .dark-mode .info-box-text {
+            color: #c7d2fe !important;
+        }
+
+        .warning-box-text {
+            color: #92400e !important;
+        }
+
+        .dark-mode .warning-box-text {
+            color: #fed7aa !important;
+        }
+
+        .success-box-text {
+            color: #065f46 !important;
+        }
+
+        .dark-mode .success-box-text {
+            color: #a7f3d0 !important;
+        }
+
+        /* Minimalist instruction style */
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .instruction-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            margin-top: 2px;
         }
     </style>
 </head>
 <body class="py-8 px-4">
     <div class="max-w-md mx-auto">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold gradient-text">Kunkun Moe Convert</h1>
-            <p class="text-gray-400 mt-2">Konversi USD ke IDR dengan mudah</p>
+        <!-- Header dengan Toggle -->
+        <div class="text-center mb-8 relative">
+            <button id="themeToggle" class="theme-toggle absolute top-0 right-0 w-12 h-12 rounded-full flex items-center justify-center text-lg">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+            <h1 class="text-4xl font-bold gradient-text mb-3">Kunkun Moe Convert</h1>
+            <p class="light-text-secondary text-lg font-medium">Konversi USD ke IDR dengan mudah</p>
         </div>
 
         <!-- Main Card -->
-        <div class="card p-6 mb-6 glow-effect">
-            <h2 class="text-xl font-semibold mb-4 text-white">Konversi USD ke IDR</h2>
+        <div class="card p-8 mb-8">
+            <h2 class="text-2xl font-bold light-contrast-fix mb-6 text-center">Konversi USD ke IDR</h2>
             
             <!-- Exchange Selection -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-300 mb-2">Convert dari:</label>
+                <label class="block text-sm font-semibold light-text-secondary mb-3">Convert dari:</label>
                 <div class="relative">
-                    <select id="exchange" class="w-full p-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 appearance-none text-white">
+                    <select id="exchange" class="exchange-select w-full p-4 rounded-xl focus:ring-2 focus:ring-indigo-500 appearance-none">
                         <option value="binance">Binance</option>
                         <option value="gateio">Gate.io</option>
                         <option value="bingx">BingX</option>
@@ -64,7 +333,7 @@
                         <option value="kucoin">Kucoin</option>
                         <option value="wallet">Wallet Crypto</option>
                     </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 light-text-secondary">
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
@@ -72,96 +341,131 @@
             
             <!-- Amount Input -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-300 mb-2">Nominal (USD):</label>
+                <label class="block text-sm font-semibold light-text-secondary mb-3">Nominal (USD):</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span class="text-gray-400">$</span>
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <span class="light-text-secondary text-lg font-semibold">$</span>
                     </div>
-                    <input type="number" id="usdAmount" min="1" step="1" class="w-full pl-8 p-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-white placeholder-gray-500" placeholder="Masukkan jumlah USD">
+                    <input type="number" id="usdAmount" min="1" step="1" class="input-field w-full pl-12 p-4 rounded-xl text-lg font-medium" placeholder="0" value="1">
                 </div>
-                <p class="text-xs text-gray-500 mt-2">Masukkan jumlah USD yang ingin dikonversi</p>
+                <p class="text-sm text-muted mt-2">Masukkan jumlah USD yang ingin dikonversi</p>
             </div>
             
             <!-- Conversion Result -->
             <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-300 mb-2">Hasil Convert (Rp):</label>
-                <div id="result" class="p-4 bg-gray-800 border border-gray-700 rounded-lg text-center">
-                    <span class="text-2xl font-bold text-white">Rp 0</span>
+                <label class="block text-sm font-semibold light-text-secondary mb-3">Hasil Convert (Rp):</label>
+                <div id="result" class="result-box p-6 rounded-xl text-center pulse">
+                    <span class="text-3xl font-bold text-white">Rp 15.000</span>
                 </div>
-                <div id="rateInfo" class="text-xs text-gray-400 mt-2 text-center"></div>
+                <div id="rateInfo" class="text-sm light-text-secondary mt-3 text-center font-medium">Kurs: 1 USD = Rp 15.000</div>
             </div>
             
             <!-- Rate Information -->
-            <div class="bg-purple-900/30 p-4 rounded-lg mb-6 border border-purple-700/50">
-                <h3 class="font-medium text-purple-300 mb-2">Informasi Kurs:</h3>
-                <ul class="text-sm text-purple-200 space-y-1">
-                    <li><i class="fas fa-circle text-xs mr-2 text-purple-400"></i>$1 - $10 = Rp 15.000 per USD</li>
-                    <li><i class="fas fa-circle text-xs mr-2 text-purple-400"></i>$10 - $100 = Rp 15.500 per USD</li>
-                    <li><i class="fas fa-circle text-xs mr-2 text-purple-400"></i>$100+ = Rp 16.000 per USD</li>
+            <div class="info-box p-5 rounded-xl mb-6">
+                <h3 class="font-semibold info-box-text mb-3 flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i>Informasi Kurs:
+                </h3>
+                <ul class="text-sm info-box-text space-y-2">
+                    <li class="flex items-center">
+                        <i class="fas fa-circle text-xs mr-3 text-indigo-600 dark:text-indigo-400"></i>
+                        <span>$1 - $10 = <strong class="info-box-text">Rp 15.000</strong> per USD</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-circle text-xs mr-3 text-indigo-600 dark:text-indigo-400"></i>
+                        <span>$10 - $100 = <strong class="info-box-text">Rp 15.500</strong> per USD</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-circle text-xs mr-3 text-indigo-600 dark:text-indigo-400"></i>
+                        <span>$100+ = <strong class="info-box-text">Rp 16.000</strong> per USD</span>
+                    </li>
                 </ul>
             </div>
             
             <!-- Action Buttons -->
-            <div class="flex space-x-3">
-                <button id="convertBtn" class="btn-primary text-white py-3 px-4 rounded-lg flex-1 font-medium">
-                    Konversi Sekarang
+            <div class="flex space-x-4">
+                <button id="convertBtn" class="btn-primary text-white py-4 px-6 rounded-xl flex-1 font-semibold text-lg">
+                    <i class="fas fa-sync-alt mr-2"></i>Konversi Sekarang
                 </button>
-                <button id="resetBtn" class="bg-gray-700 text-gray-300 py-3 px-4 rounded-lg font-medium hover:bg-gray-600 transition">
+                <button id="resetBtn" class="bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-300 py-4 px-6 rounded-xl font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition-all duration-300">
                     <i class="fas fa-redo"></i>
                 </button>
             </div>
         </div>
         
-        <!-- Payment Information -->
-        <div class="card p-6 mb-6 glow-effect">
-            <h2 class="text-xl font-semibold mb-4 text-white">Informasi Pembayaran</h2>
-            <div class="space-y-4">
+        <!-- Payment Information - MINIMALIST VERSION -->
+        <div class="card p-8 mb-8">
+            <h2 class="text-2xl font-bold payment-text mb-6 text-center">Informasi Pembayaran</h2>
+            <div class="space-y-5">
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">ID Aktif:</label>
-                    <div class="flex items-center justify-between p-3 bg-gray-800 border border-gray-700 rounded-lg">
-                        <span class="font-mono text-white" id="activeId">152625716</span>
-                        <button id="copyBtn" class="text-purple-400 hover:text-purple-300 transition">
+                    <label class="block text-sm font-semibold payment-label mb-2">ID Aktif:</label>
+                    <div class="flex items-center justify-between p-4 payment-box rounded-xl">
+                        <span class="font-mono payment-text text-lg font-semibold" id="activeId">152625716</span>
+                        <button id="copyBtn" class="copy-btn text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 text-lg">
                             <i class="far fa-copy"></i>
                         </button>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Exchange:</label>
-                    <div class="p-3 bg-gray-800 border border-gray-700 rounded-lg">
-                        <span class="text-white" id="activeExchange">Binance</span>
+                    <label class="block text-sm font-semibold payment-label mb-2">Exchange:</label>
+                    <div class="p-4 payment-box rounded-xl">
+                        <span class="payment-text font-semibold" id="activeExchange">Binance</span>
                     </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">Atas Nama:</label>
-                    <div class="p-3 bg-gray-800 border border-gray-700 rounded-lg">
-                        <span class="text-white">Kunkuune</span>
+                    <label class="block text-sm font-semibold payment-label mb-2">Atas Nama:</label>
+                    <div class="p-4 payment-box rounded-xl">
+                        <span class="payment-text font-semibold">Kunkuune</span>
                     </div>
                 </div>
             </div>
             
-            <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700/50 rounded-lg">
-                <p class="text-sm text-yellow-200">
-                    <i class="fas fa-exclamation-circle mr-2"></i>
-                    Silakan kirim USD sesuai nominal ke ID di atas. Setelah transfer, screenshot bukti pembayaran dan kirim untuk konfirmasi.
-                </p>
-            </div>
-
-            <div class="mt-4 p-4 bg-blue-900/30 border border-blue-700/50 rounded-lg">
-                <p class="text-sm text-blue-200">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    Silakan inbox di Facebook untuk konfirmasi dan pengiriman jika ingin convert via wallet crypto.
-                </p>
+            <!-- Minimalist Instructions -->
+            <div class="mt-6 space-y-3">
+                <div class="instruction-item">
+                    <div class="instruction-icon bg-amber-500 text-white">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm warning-box-text">
+                            Kirim USD sesuai nominal ke ID di atas
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon bg-amber-500 text-white">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm warning-box-text">
+                            Screenshot bukti transfer & kirim untuk konfirmasi
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="instruction-item">
+                    <div class="instruction-icon bg-emerald-500 text-white">
+                        <i class="fab fa-facebook"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm success-box-text">
+                            Inbox Facebook untuk convert via wallet crypto
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Footer -->
-        <div class="text-center text-gray-500 text-sm">
-            <p>Dibuat dengan <i class="fas fa-heart text-red-400"></i> oleh Kunkun Moe Convert</p>
+        <div class="text-center text-muted text-sm">
+            <p class="light-text-secondary">Dibuat dengan <i class="fas fa-heart text-rose-500 pulse"></i> oleh Kunkun Moe Convert</p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
             const exchangeSelect = document.getElementById('exchange');
             const usdAmountInput = document.getElementById('usdAmount');
             const resultDiv = document.getElementById('result');
@@ -183,13 +487,37 @@
                 wallet: { id: 'Inbox Facebook', name: 'Wallet Crypto' }
             };
 
+            // Theme Management
+            function initTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                setTheme(savedTheme);
+            }
+
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark-mode');
+                    themeIcon.className = 'fas fa-sun text-amber-300';
+                    themeToggle.title = 'Switch to Light Mode';
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                    themeIcon.className = 'fas fa-moon text-slate-700';
+                    themeToggle.title = 'Switch to Dark Mode';
+                }
+                localStorage.setItem('theme', theme);
+            }
+
+            themeToggle.addEventListener('click', function() {
+                const isDark = document.documentElement.classList.contains('dark-mode');
+                setTheme(isDark ? 'light' : 'dark');
+            });
+
             // Fungsi untuk menghitung konversi
             function calculateConversion() {
                 const usdAmount = parseFloat(usdAmountInput.value) || 0;
                 let rate;
                 
                 if (usdAmount <= 0) {
-                    resultDiv.innerHTML = '<span class="text-2xl font-bold text-white">Rp 0</span>';
+                    resultDiv.innerHTML = '<span class="text-3xl font-bold text-white">Rp 0</span>';
                     rateInfoDiv.textContent = '';
                     return;
                 }
@@ -207,8 +535,14 @@
                 const idrAmount = usdAmount * rate;
                 const formattedAmount = new Intl.NumberFormat('id-ID').format(idrAmount);
                 
-                resultDiv.innerHTML = `<span class="text-2xl font-bold text-purple-400">Rp ${formattedAmount}</span>`;
+                resultDiv.innerHTML = `<span class="text-3xl font-bold text-white">Rp ${formattedAmount}</span>`;
                 rateInfoDiv.textContent = `Kurs: 1 USD = Rp ${new Intl.NumberFormat('id-ID').format(rate)}`;
+                
+                // Add pulse animation
+                resultDiv.classList.add('pulse');
+                setTimeout(() => {
+                    resultDiv.classList.remove('pulse');
+                }, 1000);
             }
             
             // Fungsi untuk update exchange
@@ -229,9 +563,8 @@
             
             // Event listener untuk tombol reset
             resetBtn.addEventListener('click', function() {
-                usdAmountInput.value = '';
-                resultDiv.innerHTML = '<span class="text-2xl font-bold text-white">Rp 0</span>';
-                rateInfoDiv.textContent = '';
+                usdAmountInput.value = '1';
+                calculateConversion();
             });
             
             // Event listener untuk tombol copy
@@ -240,15 +573,18 @@
                 if (idToCopy !== '-' && idToCopy !== 'Inbox Facebook') {
                     navigator.clipboard.writeText(idToCopy).then(function() {
                         const originalIcon = copyBtn.innerHTML;
-                        copyBtn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
+                        copyBtn.innerHTML = '<i class="fas fa-check text-emerald-500"></i>';
+                        copyBtn.classList.add('text-emerald-500');
                         setTimeout(function() {
                             copyBtn.innerHTML = originalIcon;
+                            copyBtn.classList.remove('text-emerald-500');
                         }, 2000);
                     });
                 }
             });
             
-            // Inisialisasi dengan nilai default
+            // Inisialisasi
+            initTheme();
             calculateConversion();
             updateExchange();
         });
