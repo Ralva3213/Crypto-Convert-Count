@@ -21,16 +21,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .exchange-logo {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 8px;
-            font-size: 12px;
-        }
         .gradient-text {
             background: linear-gradient(90deg, #8b5cf6, #ec4899);
             -webkit-background-clip: text;
@@ -46,6 +36,23 @@
         }
         .glow-effect {
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        }
+        .shortcut-item {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .shortcut-item:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+        .exchange-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -71,6 +78,7 @@
                         <option value="bingx">BingX</option>
                         <option value="okx">OKX</option>
                         <option value="bitget">Bitget</option>
+                        <option value="kucoin">Kucoin</option>
                         <option value="wallet">Wallet Crypto</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
@@ -120,18 +128,106 @@
                 </button>
             </div>
         </div>
+
+        <!-- Shortcut IDs -->
+        <div class="card p-6 mb-6 glow-effect">
+            <h2 class="text-xl font-semibold mb-4 text-white text-center">Shortcut ID Exchange</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Binance -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="binance" data-id="152625716">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-yellow-500/20 text-yellow-400">
+                            <i class="fab fa-btc"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">Binance</div>
+                            <div class="text-xs text-gray-400 font-mono">152625716</div>
+                        </div>
+                        <i class="fas fa-copy text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- Gate.io -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="gateio" data-id="6214997">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-blue-500/20 text-blue-400">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">Gate.io</div>
+                            <div class="text-xs text-gray-400 font-mono">6214997</div>
+                        </div>
+                        <i class="fas fa-copy text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- OKX -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="okx" data-id="204554852062371840">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-purple-500/20 text-purple-400">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">OKX</div>
+                            <div class="text-xs text-gray-400 font-mono">2045548...</div>
+                        </div>
+                        <i class="fas fa-copy text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- Bitget -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="bitget" data-id="5061377999">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-green-500/20 text-green-400">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">Bitget</div>
+                            <div class="text-xs text-gray-400 font-mono">5061377999</div>
+                        </div>
+                        <i class="fas fa-copy text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- Kucoin -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="kucoin" data-id="65771961">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-red-500/20 text-red-400">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">Kucoin</div>
+                            <div class="text-xs text-gray-400 font-mono">65771961</div>
+                        </div>
+                        <i class="fas fa-copy text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+                
+                <!-- Wallet Crypto -->
+                <div class="shortcut-item p-3 bg-gray-800 rounded-lg cursor-pointer" data-exchange="wallet">
+                    <div class="flex items-center space-x-3">
+                        <div class="exchange-icon bg-gray-500/20 text-gray-400">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="text-sm font-medium text-white">Wallet</div>
+                            <div class="text-xs text-gray-400">Inbox Facebook</div>
+                        </div>
+                        <i class="fas fa-external-link-alt text-gray-500 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Payment Information -->
         <div class="card p-6 mb-6 glow-effect">
             <h2 class="text-xl font-semibold mb-4 text-white">Informasi Pembayaran</h2>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-1">ID Binance:</label>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">ID Aktif:</label>
                     <div class="flex items-center justify-between p-3 bg-gray-800 border border-gray-700 rounded-lg">
-                        <span class="font-mono text-white">152625716</span>
-                        <button id="copyBtn" class="text-purple-400 hover:text-purple-300 transition">
-                            <i class="far fa-copy"></i>
-                        </button>
+                        <span class="font-mono text-white" id="activeId">152625716</span>
+                        <span class="text-sm text-purple-400" id="activeExchange">Binance</span>
                     </div>
                 </div>
                 <div>
@@ -145,7 +241,14 @@
             <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700/50 rounded-lg">
                 <p class="text-sm text-yellow-200">
                     <i class="fas fa-exclamation-circle mr-2"></i>
-                    Silakan kirim USD sesuai nominal ke ID Binance di atas. Setelah transfer, screenshot bukti pembayaran dan kirim untuk konfirmasi.
+                    Silakan kirim USD sesuai nominal ke ID di atas. Setelah transfer, screenshot bukti pembayaran dan kirim untuk konfirmasi.
+                </p>
+            </div>
+
+            <div class="mt-4 p-4 bg-blue-900/30 border border-blue-700/50 rounded-lg">
+                <p class="text-sm text-blue-200">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Silakan inbox di Facebook untuk konfirmasi dan pengiriman jika ingin convert via wallet crypto.
                 </p>
             </div>
         </div>
@@ -164,8 +267,21 @@
             const rateInfoDiv = document.getElementById('rateInfo');
             const convertBtn = document.getElementById('convertBtn');
             const resetBtn = document.getElementById('resetBtn');
-            const copyBtn = document.getElementById('copyBtn');
+            const activeId = document.getElementById('activeId');
+            const activeExchange = document.getElementById('activeExchange');
+            const shortcutItems = document.querySelectorAll('.shortcut-item');
             
+            // Data exchange IDs
+            const exchangeData = {
+                binance: { id: '152625716', name: 'Binance' },
+                gateio: { id: '6214997', name: 'Gate.io' },
+                bingx: { id: '-', name: 'BingX' },
+                okx: { id: '204554852062371840', name: 'OKX' },
+                bitget: { id: '5061377999', name: 'Bitget' },
+                kucoin: { id: '65771961', name: 'Kucoin' },
+                wallet: { id: 'Inbox Facebook', name: 'Wallet Crypto' }
+            };
+
             // Fungsi untuk menghitung konversi
             function calculateConversion() {
                 const usdAmount = parseFloat(usdAmountInput.value) || 0;
@@ -194,6 +310,49 @@
                 rateInfoDiv.textContent = `Kurs: 1 USD = Rp ${new Intl.NumberFormat('id-ID').format(rate)}`;
             }
             
+            // Fungsi untuk update exchange
+            function updateExchange(exchange) {
+                exchangeSelect.value = exchange;
+                activeId.textContent = exchangeData[exchange].id;
+                activeExchange.textContent = exchangeData[exchange].name;
+            }
+
+            // Event listener untuk shortcut items
+            shortcutItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const exchange = this.getAttribute('data-exchange');
+                    const id = this.getAttribute('data-id');
+                    
+                    if (exchange === 'wallet') {
+                        // Untuk wallet crypto, tampilkan pesan khusus
+                        activeId.textContent = 'Inbox Facebook';
+                        activeExchange.textContent = 'Wallet Crypto';
+                        exchangeSelect.value = 'wallet';
+                    } else if (id) {
+                        // Copy ID ke clipboard
+                        navigator.clipboard.writeText(id).then(() => {
+                            // Update tampilan
+                            updateExchange(exchange);
+                            
+                            // Tampilkan feedback
+                            const icon = this.querySelector('.fa-copy');
+                            if (icon) {
+                                icon.className = 'fas fa-check text-green-400 text-xs';
+                                setTimeout(() => {
+                                    icon.className = 'fas fa-copy text-gray-500 text-xs';
+                                }, 2000);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Event listener untuk select exchange
+            exchangeSelect.addEventListener('change', function() {
+                const exchange = this.value;
+                updateExchange(exchange);
+            });
+            
             // Event listener untuk tombol konversi
             convertBtn.addEventListener('click', calculateConversion);
             
@@ -205,18 +364,6 @@
                 usdAmountInput.value = '';
                 resultDiv.innerHTML = '<span class="text-2xl font-bold text-white">Rp 0</span>';
                 rateInfoDiv.textContent = '';
-            });
-            
-            // Event listener untuk tombol copy
-            copyBtn.addEventListener('click', function() {
-                const binanceId = '152625716';
-                navigator.clipboard.writeText(binanceId).then(function() {
-                    const originalIcon = copyBtn.innerHTML;
-                    copyBtn.innerHTML = '<i class="fas fa-check text-green-400"></i>';
-                    setTimeout(function() {
-                        copyBtn.innerHTML = originalIcon;
-                    }, 2000);
-                });
             });
             
             // Inisialisasi dengan nilai default
